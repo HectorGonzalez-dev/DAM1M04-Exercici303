@@ -47,7 +47,11 @@
 
                             <p>
                                 <strong>Idioma:</strong>
-                                <input type="text" name="language" value="{{movie.language}}" class="input-field small" required pattern=".*\S.*" oninvalid="this.classList.add('error')" oninput="this.classList.remove('error')"/>
+                                <select name="language" class="input-field small" required>
+                                    {{#each language}}
+                                        <option value="{{name}}">{{name}}</option>
+                                    {{/each}}
+                                </select>
                             </p>
 
                             <p>

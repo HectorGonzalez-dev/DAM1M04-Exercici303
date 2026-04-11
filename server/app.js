@@ -243,6 +243,7 @@ app.get('/movieEdit', async (req, res) => {
       JOIN film_actor fc ON a.actor_id = fc.actor_id
       WHERE fc.film_id = ${[movieId]}
     `);
+    const langRows = await db.query(`SELECT language_id, name FROM language ORDER BY name`);
 
     // Si no s'ha trobat cap movie amb aquest id, respondre amb error 404
     if (!filmRow || filmRow.length === 0) {
@@ -265,6 +266,11 @@ app.get('/movieEdit', async (req, res) => {
       last_name: 'string'
     })
 
+    const langJson = db.table_to_json(langRows, {
+      language_id: 'number',
+      name: 'string'
+    })
+
     // Llegir l'arxiu .json amb dades comunes per a totes les pàgines
     const commonData = JSON.parse(
       fs.readFileSync(path.join(__dirname, 'data', 'common.json'), 'utf8')
@@ -274,6 +280,7 @@ app.get('/movieEdit', async (req, res) => {
     movieJson[0].actors = actorsJson;
     const data = {
       movie: movieJson[0],
+      language: langJson,
       common: commonData
     };
 
@@ -287,6 +294,42 @@ app.get('/movieEdit', async (req, res) => {
     res.status(500).send('Error consultant la base de dades');
   }
 });
+/*
+app.post('/update', async (req, res) => {
+  try {
+
+    const table = req.body.table
+
+    if (table == "cursos") {
+
+      const id = parseInt(req.body.id, 10)
+      const mestre_id = parseInt(req.body.mestre_id, 10)
+      const nom = req.body.nom
+      const tematica = req.body.tematica
+
+      // Basic validation
+      if (!Number.isInteger(id) || id <= 0) return res.status(400).send('ID invàlid')
+      if (!Number.isInteger(mestre_id) || mestre_id <= 0) return res.status(400).send('Mestre invàlid')
+      if (!nom || !tematica) return res.status(400).send('Falten dades')
+
+      // Update curs
+      await db.query(`
+        UPDATE cursos
+        SET nom = "${nom}", tematica = "${tematica}"
+        WHERE id = ${id};
+      `)
+
+      // Keep only 1 mestre per curs (UI)
+      await db.query(`DELETE FROM mestre_curs WHERE curs_id = ${id};`)
+      await db.query(`INSERT INTO mestre_curs (mestre_id, curs_id) VALUES (${mestre_id}, ${id});`)
+
+      res.redirect(`/curs?id=${id}`)
+    }
+  } catch (err) {
+    console.error(err)
+    res.status(500).send('Error editant el curs')
+  }
+})*/
 
 app.get('/customers', async (req, res) => {
   try {
