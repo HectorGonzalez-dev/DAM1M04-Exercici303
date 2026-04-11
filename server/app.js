@@ -182,7 +182,7 @@ app.get('/movie', async (req, res) => {
 
     // Si no s'ha trobat cap movie amb aquest id, respondre amb error 404
     if (!filmRow || filmRow.length === 0) {
-      return res.status(404).send('Curs no trobat')
+      return res.status(404).send('Pelicula no encontrada')
     }
 
     // Transformar les dades a JSON (per les plantilles .hbs)
@@ -236,7 +236,7 @@ app.get('/movieEdit', async (req, res) => {
     }
 
     // Query para obtener la pelicula deseada
-    const filmRow = await db.query(`SELECT f.film_id, f.title, f.description, f.release_year, l.name AS language, f.length, f.rating FROM film f JOIN language l ON f.language_id=l.language_id WHERE f.film_id = ${[movieId]}`);
+    const filmRow = await db.query(`SELECT f.film_id, f.title, f.description, f.release_year, l.language_id, l.name AS language, f.length, f.rating FROM film f JOIN language l ON f.language_id=l.language_id WHERE f.film_id = ${[movieId]}`);
     const actorRows = await db.query(`
       SELECT a.first_name, a.last_name
       FROM actor a
@@ -247,7 +247,7 @@ app.get('/movieEdit', async (req, res) => {
 
     // Si no s'ha trobat cap movie amb aquest id, respondre amb error 404
     if (!filmRow || filmRow.length === 0) {
-      return res.status(404).send('Curs no trobat')
+      return res.status(404).send('Pelicula no encontrada')
     }
 
     // Transformar les dades a JSON (per les plantilles .hbs)
@@ -321,7 +321,7 @@ app.post('/editarPeli', async (req, res) => {
     }
   } catch (err) {
     console.error(err)
-    res.status(500).send('Error editant el curs')
+    res.status(500).send('Error editant la pelicula')
   }
 })
 
