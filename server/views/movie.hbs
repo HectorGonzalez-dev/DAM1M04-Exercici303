@@ -9,9 +9,12 @@
         <main class="container">
             <div class="movie-detail">
 
-                <!-- Link volver -->
-                <div class="movie-back">
-                    <a href="/movies">← Volver a películas</a>
+                <div class="movie-actions">
+                    <a href="/movies" class="btn-back">← Volver a películas</a>
+
+                    <a href="/movieEdit?id={{movie.film_id}}" class="btn-edit">
+                        Editar
+                    </a>
                 </div>
 
                 <!-- Header -->
@@ -49,7 +52,7 @@
                                     </span>
                                 {{/each}}
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>

@@ -419,3 +419,110 @@ footer span {
     margin: 0;
     color: #1f2937;
 }
+
+.movie-actions {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    right: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Botón volver */
+.btn-back {
+    text-decoration: none;
+    color: #2563eb;
+    font-weight: 600;
+}
+
+.btn-back:hover {
+    text-decoration: underline;
+}
+
+/* Botón editar */
+.btn-edit {
+    background-color: #fbbf24;
+    color: #111827;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.btn-edit:hover {
+    background-color: #f59e0b;
+}
+
+.input-field {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    margin-top: 0.3rem;
+    color: #111827;
+}
+
+.input-field.small {
+    max-width: 200px;
+    display: inline-block;
+}
+
+textarea.input-field {
+    resize: none;
+}
+
+/* Botones del formulario */
+.movie-form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    gap: 1rem;
+}
+
+.btn-cancel,
+.btn-delete,
+.btn-save {
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.btn-cancel {
+    background: #e5e7eb;
+    color: #111827;
+}
+
+.btn-cancel:hover {
+    background: #d1d5db;
+}
+
+.btn-delete {
+    background: #ef4444;
+    color: white;
+}
+
+.btn-delete:hover {
+    background: #dc2626;
+}
+
+.btn-save {
+    background: #fbbf24;
+    color: #111827;
+}
+
+.btn-save:hover {
+    background: #f59e0b;
+}
+
+.input-field.error {
+    border: 2px solid #ef4444;
+    background-color: #fef2f2;
+}

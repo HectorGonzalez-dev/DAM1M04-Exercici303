@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        {{> header}}
+        <title>Editor</title>
+    </head>
+    <body>
+        {{> menu}}
+        <main class="container">
+            <div class="movie-detail">
+
+                <!-- Header -->
+                <div class="movie-detail-header">
+                    <h1>Editar película</h1>
+                </div>
+
+                <!-- Contenido principal -->
+                <form class="movie-detail-body" method="POST" action="/update">
+
+                    <!-- Cover -->
+                    <div class="movie-cover-wrapper">
+                        <img class="movie-cover-large" src="/img/cover_placeholder.png" alt="{{movie.title}}"/>
+                    </div>
+
+                    <!-- Info -->
+                    <div class="movie-info-block">
+
+                        <!-- Título -->
+                        <div>
+                            <label><strong>Título</strong></label>
+                            <input type="text" name="title" value="{{movie.title}}" class="input-field" required pattern=".*\S.*" maxlength="128" oninvalid="this.classList.add('error')" oninput="this.classList.remove('error')"/>
+                        </div>
+
+                        <!-- Descripción -->
+                        <div>
+                            <label><strong>Descripción</strong></label>
+                            <textarea name="description" class="input-field" rows="5" required oninvalid="this.classList.add('error')" oninput="this.classList.remove('error')">{{movie.description}}</textarea>
+                        </div>
+
+                        <!-- Metadata -->
+                        <div class="movie-meta">
+
+                            <p>
+                                <strong>Año:</strong>
+                                <input type="number" name="release_year" value="{{movie.release_year}}" class="input-field small" required min="1888" oninvalid="this.classList.add('error')" oninput="this.classList.remove('error')"/>
+                            </p>
+
+                            <p>
+                                <strong>Idioma:</strong>
+                                <input type="text" name="language" value="{{movie.language}}" class="input-field small" required pattern=".*\S.*" oninvalid="this.classList.add('error')" oninput="this.classList.remove('error')"/>
+                            </p>
+
+                            <p>
+                                <strong>Duración:</strong>
+                                <input type="number" name="length" value="{{movie.length}}" class="input-field small" required min="1" oninvalid="this.classList.add('error')" oninput="this.classList.remove('error')"/> min
+                            </p>
+
+                            <p>
+                                <strong>Rating:</strong>
+                                <input type="text" name="rating" value="{{movie.rating}}" class="input-field small" required pattern=".*\S.*" oninvalid="this.classList.add('error')" oninput="this.classList.remove('error')"/>
+                            </p>
+
+                        </div>
+
+                        <!-- Actores -->
+                        <div class="movie-actors">
+                            <h3>Actores</h3>
+
+                            <div class="actors-list">
+                                {{#each movie.actors}}
+                                    <span class="actor">
+                                        {{first_name}} {{last_name}}
+                                    </span>
+                                {{/each}}
+                            </div>
+                        </div>
+
+                        <!-- Botones -->
+                        <div class="movie-form-actions">
+                            <a href="/movie?id={{movie.film_id}}" class="btn-cancel">Cancelar</a>
+
+                            <button type="submit" formaction="/movies/{{movie.id}}/delete" formmethod="POST"
+                                class="btn-delete">
+                                Borrar
+                            </button>
+
+                            <button type="submit" class="btn-save">
+                                Guardar cambios
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </main>
+        {{> footer}}
+    </body>
+</html>

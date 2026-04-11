@@ -5,7 +5,7 @@
 
     <ul class="nav-links">
         <li><a href="/" class="{{#if (eq currentPage 'home')}}active{{/if}}">Inicio</a></li>
-        <li><a href="/movies" class="{{#if (eq currentPage 'movies')}}active{{else if (eq currentPage 'movie')}}active{{/if}}">Películas</a></li>
+        <li><a href="/movies" class="{{#if (eq currentPage 'movies')}}active{{else if (eq currentPage 'movie')}}active{{else if (eq currentPage 'movieEdit')}}active{{/if}}">Películas</a></li>
         <li><a href="/customers" class="{{#if (eq currentPage 'customers')}}active{{/if}}">Clientes</a></li>
     </ul>
 </nav>

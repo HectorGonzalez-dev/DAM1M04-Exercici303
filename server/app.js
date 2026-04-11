@@ -224,6 +224,70 @@ app.get('/movie', async (req, res) => {
   }
 });
 
+app.get('/movieEdit', async (req, res) => {
+  try {
+
+    // Llegit el valor del paràmetre "id" en format enter
+    const movieId = parseInt(req.query.id, 10)
+
+    // Validar que és un número enter positiu (o respondre amb error 400)
+    if (!Number.isInteger(movieId) || movieId <= 0) {
+      return res.status(400).send('Paràmetre id invàlid')
+    }
+
+    // Query para obtener la pelicula deseada
+    const filmRow = await db.query(`SELECT f.film_id, f.title, f.description, f.release_year, l.name AS language, f.length, f.rating FROM film f JOIN language l ON f.language_id=l.language_id WHERE f.film_id = ${[movieId]}`);
+    const actorRows = await db.query(`
+      SELECT a.first_name, a.last_name
+      FROM actor a
+      JOIN film_actor fc ON a.actor_id = fc.actor_id
+      WHERE fc.film_id = ${[movieId]}
+    `);
+
+    // Si no s'ha trobat cap movie amb aquest id, respondre amb error 404
+    if (!filmRow || filmRow.length === 0) {
+      return res.status(404).send('Curs no trobat')
+    }
+
+    // Transformar les dades a JSON (per les plantilles .hbs)
+    const movieJson = db.table_to_json(filmRow, {
+      film_id: 'number',
+      title: 'string',
+      description: 'string',
+      release_year: 'number',
+      language: 'string',
+      length: 'number',
+      rating: 'string'
+    })
+
+    const actorsJson = db.table_to_json(actorRows, {
+      first_name: 'string',
+      last_name: 'string'
+    })
+
+    // Llegir l'arxiu .json amb dades comunes per a totes les pàgines
+    const commonData = JSON.parse(
+      fs.readFileSync(path.join(__dirname, 'data', 'common.json'), 'utf8')
+    );
+
+    // Construir l'objecte de dades per a la plantilla
+    movieJson[0].actors = actorsJson;
+    const data = {
+      movie: movieJson[0],
+      common: commonData
+    };
+
+    // Renderitzar la plantilla amb les dades
+    res.render('movieEdit', {
+        ...data,
+        currentPage: 'movieEdit'
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error consultant la base de dades');
+  }
+});
+
 app.get('/customers', async (req, res) => {
   try {
     // Obtenir les dades de la base de dades
