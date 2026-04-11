@@ -2,12 +2,58 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         {{> header}}
-        <title>Película</title>
+        <title>{{movie.title}}</title>
     </head>
     <body>
         {{> menu}}
         <main class="container">
+            <div class="movie-detail">
 
+                <!-- Link volver -->
+                <div class="movie-back">
+                    <a href="/movies">← Volver a películas</a>
+                </div>
+
+                <!-- Header -->
+                <div class="movie-detail-header">
+                    <h1>{{movie.title}}</h1>
+                </div>
+
+                <!-- Contenido principal -->
+                <div class="movie-detail-body">
+
+                    <!-- Cover -->
+                    <div class="movie-cover-wrapper">
+                        <img class="movie-cover-large" src="/img/cover_placeholder.png" alt="{{movie.title}}"/>
+                    </div>
+
+                    <!-- Info -->
+                    <div class="movie-info-block">
+
+                        <p class="movie-description">{{movie.description}}</p>
+
+                        <div class="movie-meta">
+                            <p><strong>Año:</strong> {{movie.release_year}}</p>
+                            <p><strong>Idioma:</strong> {{movie.language}}</p>
+                            <p><strong>Duración:</strong> {{movie.length}} min</p>
+                            <p><strong>Rating:</strong> {{movie.rating}}</p>
+                        </div>
+
+                        <div class="movie-actors">
+                            <h3>Actores</h3>
+
+                            <div class="actors-list">
+                                {{#each movie.actors}}
+                                    <span class="actor">
+                                        {{first_name}} {{last_name}}
+                                    </span>
+                                {{/each}}
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
         {{> footer}}
     </body>

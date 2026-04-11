@@ -337,3 +337,85 @@ footer span {
 .movie-link-inline:hover {
     text-decoration: underline;
 }
+
+.movie-detail {
+    max-width: 1000px;
+    margin: 2rem auto;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    padding: 2rem;
+    position: relative;
+}
+
+/* volver atrás */
+.movie-back {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}
+
+.movie-back a {
+    text-decoration: none;
+    color: #2563eb;
+    font-weight: 600;
+}
+
+.movie-back a:hover {
+    text-decoration: underline;
+}
+
+.movie-detail-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.movie-detail-header h1 {
+    font-size: 2.4rem;
+    margin: 0;
+    color: #111827;
+}
+
+/* layout principal */
+.movie-detail-body {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+/* cover grande */
+.movie-cover-wrapper {
+    width: 100%;
+}
+
+.movie-cover-large {
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* info */
+.movie-info-block {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.movie-description {
+    font-size: 1.05rem;
+    color: #374151;
+    line-height: 1.6;
+}
+
+.movie-meta p {
+    margin: 0.3rem 0;
+    font-size: 0.95rem;
+    color: #4b5563;
+}
+
+.movie-actors h3 {
+    margin: 0;
+    color: #1f2937;
+}
