@@ -15,7 +15,10 @@
                 </div>
 
                 <!-- Contenido principal -->
-                <form class="movie-detail-body" method="POST" action="/update">
+                <form class="movie-detail-body" method="POST" action="/editarPeli">
+
+                    <input type="hidden" name="table" value="film">
+                    <input type="hidden" name="id" value="{{movie.film_id}}">
 
                     <!-- Cover -->
                     <div class="movie-cover-wrapper">
@@ -49,7 +52,7 @@
                                 <strong>Idioma:</strong>
                                 <select name="language" class="input-field small" required>
                                     {{#each language}}
-                                        <option value="{{name}}">{{name}}</option>
+                                        <option value="{{language_id}}">{{name}}</option>
                                     {{/each}}
                                 </select>
                             </p>
@@ -61,7 +64,13 @@
 
                             <p>
                                 <strong>Rating:</strong>
-                                <input type="text" name="rating" value="{{movie.rating}}" class="input-field small" required pattern=".*\S.*" oninvalid="this.classList.add('error')" oninput="this.classList.remove('error')"/>
+                                <select name="rating" class="input-field small" required>
+                                    <option value="G">G</option>
+                                    <option value="PG">PG</option>
+                                    <option value="PG-13">PG-13</option>
+                                    <option value="R">R</option>
+                                    <option value="NC-17">NC-17</option>
+                                </select>
                             </p>
 
                         </div>

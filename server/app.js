@@ -294,42 +294,36 @@ app.get('/movieEdit', async (req, res) => {
     res.status(500).send('Error consultant la base de dades');
   }
 });
-/*
-app.post('/update', async (req, res) => {
+
+app.post('/editarPeli', async (req, res) => {
   try {
 
     const table = req.body.table
 
-    if (table == "cursos") {
+    if (table == "film") {
 
-      const id = parseInt(req.body.id, 10)
-      const mestre_id = parseInt(req.body.mestre_id, 10)
-      const nom = req.body.nom
-      const tematica = req.body.tematica
-
-      // Basic validation
-      if (!Number.isInteger(id) || id <= 0) return res.status(400).send('ID invàlid')
-      if (!Number.isInteger(mestre_id) || mestre_id <= 0) return res.status(400).send('Mestre invàlid')
-      if (!nom || !tematica) return res.status(400).send('Falten dades')
+      const film_id = parseInt(req.body.id, 10)
+      const title = req.body.title
+      const description = req.body.description
+      const release_year = parseInt(req.body.release_year, 10)
+      const language_id = parseInt(req.body.language, 10)
+      const length = parseInt(req.body.length, 10)
+      const rating = req.body.rating
 
       // Update curs
       await db.query(`
-        UPDATE cursos
-        SET nom = "${nom}", tematica = "${tematica}"
-        WHERE id = ${id};
+        UPDATE film
+        SET title = "${title}", description = "${description}", release_year = "${release_year}", language_id = "${language_id}", length = "${length}", rating = "${rating}"
+        WHERE film_id = ${film_id};
       `)
 
-      // Keep only 1 mestre per curs (UI)
-      await db.query(`DELETE FROM mestre_curs WHERE curs_id = ${id};`)
-      await db.query(`INSERT INTO mestre_curs (mestre_id, curs_id) VALUES (${mestre_id}, ${id});`)
-
-      res.redirect(`/curs?id=${id}`)
+      res.redirect(`/movie?id=${film_id}`)
     }
   } catch (err) {
     console.error(err)
     res.status(500).send('Error editant el curs')
   }
-})*/
+})
 
 app.get('/customers', async (req, res) => {
   try {
