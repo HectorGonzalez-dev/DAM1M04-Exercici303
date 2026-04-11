@@ -160,6 +160,29 @@ app.get('/movies', async (req, res) => {
   }
 });
 
+app.get('/movie', async (req, res) => {
+  try {
+    // Llegir l'arxiu .json amb dades comunes per a totes les pàgines
+    const commonData = JSON.parse(
+      fs.readFileSync(path.join(__dirname, 'data', 'common.json'), 'utf8')
+    );
+
+    // Construir l'objecte de dades per a la plantilla
+    const data = {
+      common: commonData
+    };
+
+    // Renderitzar la plantilla amb les dades
+    res.render('movie', {
+        ...data,
+        currentPage: 'movie'
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error consultant la base de dades');
+  }
+});
+
 app.get('/customers', async (req, res) => {
   try {
     // Obtenir les dades de la base de dades
