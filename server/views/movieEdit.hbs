@@ -95,9 +95,14 @@
                 <div class="movie-form-actions">
                     <a href="/movie?id={{movie.film_id}}" class="btn-cancel">Cancelar</a>
 
-                    <button type="submit" formaction="/movies/{{movie.id}}/delete" formmethod="POST" class="btn-delete">
-                        Borrar
-                    </button>
+
+                    <form method="POST" action="/esborrarPeli">
+                        <input type="hidden" name="table" value="film">
+                        <input type="hidden" name="id" value="{{movie.film_id}}">
+                        <button type="submit" class="btn-delete">
+                            Borrar
+                        </button>
+                    </form>
 
                     <button type="submit" form="editForm" class="btn-save">
                         Guardar cambios

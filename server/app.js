@@ -325,6 +325,42 @@ app.post('/editarPeli', async (req, res) => {
   }
 })
 
+app.post('/esborrarPeli', async (req, res) => {
+  try {
+
+    const table = req.body.table
+
+    if (table == "film") {
+
+      const id = parseInt(req.body.id, 10)
+
+      // Basic validation
+      if (!Number.isInteger(id) || id <= 0) {
+        return res.status(400).send('ID de pelicula invalida')
+      }
+
+      await db.query(`DELETE FROM film_actor WHERE film_id = ${id}`)
+      await db.query(`DELETE FROM film_category WHERE film_id = ${id}`)
+      await db.query(`
+        DELETE FROM rental
+        WHERE inventory_id IN (
+            SELECT inventory_id
+            FROM inventory
+            WHERE film_id = ${id}
+        )
+      `)
+      await db.query(`DELETE FROM inventory WHERE film_id = ${id}`)
+      await db.query(`DELETE FROM film WHERE film_id = ${id}`)
+
+      res.redirect('/movies')
+    }
+
+  } catch (err) {
+    console.error(err)
+    res.status(500).send('Error esborrant la peli')
+  }
+})
+
 app.get('/customers', async (req, res) => {
   try {
     // Obtenir les dades de la base de dades
