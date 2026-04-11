@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        {{> header}}
+        <title>Nueva película</title>
+    </head>
+    <body>
+        {{> menu}}
+        <main class="container">
+            <div class="movie-detail">
+
+                <!-- Header -->
+                <div class="movie-detail-header">
+                    <h1>Agregar nueva película</h1>
+                </div>
+
+                <!-- Contenido principal -->
+                <form id="createForm" class="movie-detail-body" method="POST" action="/afegirPeli">
+
+                    <input type="hidden" name="table" value="film">
+
+                    <!-- Cover -->
+                    <div class="movie-cover-wrapper">
+                        <img class="movie-cover-large" src="/img/cover_placeholder.png" alt="New movie"/>
+                    </div>
+
+                    <!-- Info -->
+                    <div class="movie-info-block">
+
+                        <!-- Título -->
+                        <div>
+                            <label><strong>Título</strong></label>
+                            <input type="text" name="title" value="" class="input-field" required pattern=".*\S.*" maxlength="128" oninvalid="this.classList.add('error')" oninput="this.classList.remove('error')"/>
+                        </div>
+
+                        <!-- Descripción -->
+                        <div>
+                            <label><strong>Descripción</strong></label>
+                            <textarea name="description" class="input-field" rows="5" required oninvalid="this.classList.add('error')" oninput="this.classList.remove('error')"></textarea>
+                        </div>
+
+                        <!-- Metadata -->
+                        <div class="movie-meta">
+
+                            <p>
+                                <strong>Año:</strong>
+                                <input type="number" name="release_year" value="" class="input-field small" required min="1888" oninvalid="this.classList.add('error')" oninput="this.classList.remove('error')"/>
+                            </p>
+
+                            <p>
+                                <strong>Idioma:</strong>
+                                <select name="language" class="input-field small" required>
+                                    {{#each language}}
+                                        <option value="{{language_id}}">{{name}}</option>
+                                    {{/each}}
+                                </select>
+                            </p>
+
+                            <p>
+                                <strong>Duración:</strong>
+                                <input type="number" name="length" value="" class="input-field small" required min="1" oninvalid="this.classList.add('error')" oninput="this.classList.remove('error')"/> min
+                            </p>
+
+                            <p>
+                                <strong>Rating:</strong>
+                                <select name="rating" class="input-field small" required>
+                                    <option value="G">G</option>
+                                    <option value="PG">PG</option>
+                                    <option value="PG-13">PG-13</option>
+                                    <option value="R">R</option>
+                                    <option value="NC-17">NC-17</option>
+                                </select>
+                            </p>
+
+                        </div>
+
+                    </div>
+                </form>
+
+                <!-- Botones -->
+                <div class="movie-form-actions">
+                    <a href="/movies" class="btn-cancel">Cancelar</a>
+
+                    <button type="submit" form="createForm" class="btn-save">
+                        Crear película
+                    </button>
+                </div>
+
+            </div>
+        </main>
+        {{> footer}}
+    </body>
+</html>

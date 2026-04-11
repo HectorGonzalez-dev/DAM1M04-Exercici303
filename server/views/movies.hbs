@@ -7,7 +7,10 @@
     <body>
         {{> menu}}
         <section class="movie-list-section">
-            <h2>Catálogo de Películas</h2>
+            <div class="movie-list-header">
+                <h2>Catálogo de Películas</h2>
+                <a href="/movieAdd" class="btn-new-movie">Nueva Película</a>
+            </div>
             <ul class="movie-list">
                 {{#each film}}
                     <li class="movie-item">
