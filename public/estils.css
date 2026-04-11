@@ -325,3 +325,15 @@ footer span {
     font-size: 0.9rem;
     color: #374151;
 }
+
+.movie-link-inline {
+    margin-left: 8px;
+    font-size: 0.85rem;
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.movie-link-inline:hover {
+    text-decoration: underline;
+}
